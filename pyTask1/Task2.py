@@ -1,5 +1,6 @@
 def task():
     number = input("Введите число: ")
+    
     try:
         number = int(number)
 

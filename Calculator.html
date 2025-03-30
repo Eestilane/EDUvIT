@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head>
+    <title>Калькулятор Карпузова Максима из группы 0482-05</title>
+    <style>
+        .calculator {
+            width: 324px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #000000;
+            background-color: gray;
+        }
+
+        .display {
+            width: 300px;
+            height: 44px;
+            margin-bottom: 20px;
+            text-align: right;
+            font-size: 18px;
+            font-family: 'Times New Roman', Times, serif;
+            border: 2px solid #000000;
+            background-color: #FFFFFF;
+            padding-right: 10px;      
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .buttons button {
+            border: 2px solid #000000;
+            background-color: #FFFFFF;
+            width: 64px;
+            height: 64xp;
+        }
+
+        .history {
+            width: 304px;
+            margin-top: 20px;
+            padding-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: darkgray;
+            height: 104px;
+            text-align: right;
+            font-size: 18px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" class="display" id="display" disabled>
+        <div class="buttons">
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('*')">*</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('+')">+</button>
+            <button onclick="appendToDisplay('/')">/</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="clearLastCharacter()">←</button>
+            <button onclick="clearDisplay()">C</button>
+        </div>
+        <div class="history" id="history"></div>
+    </div>
+
+    <script>  
+        function appendToDisplay(value) {  
+            let display = document.getElementById('display');  
+            let currentValue = display.value;  
+            let lastChar = currentValue.slice(-1);  
+    
+            const operators = ['+', '-', '*', '/'];  
+
+            if (operators.includes(value) && (operators.includes(lastChar) || lastChar === '.')) {  
+                return;  
+            }  
+
+            if (value === '.' && (operators.includes(lastChar) || lastChar === '.')) {  
+                return;  
+            }  
+            
+            if (operators.includes(lastChar) && value === '.') {  
+                return;  
+            }  
+    
+            display.value += value;  
+        }  
+    
+        function calculate() {  
+            let display = document.getElementById('display');  
+            let history = document.getElementById('history');  
+            try {  
+                let result = eval(display.value);  
+                history.innerHTML += `<div>${display.value} = ${result}</div>`;  
+                display.value = result;  
+            } catch (e) {  
+                display.value = "Ошибка";  
+            }  
+        }  
+    
+        function clearDisplay() {  
+            document.getElementById('display').value = '';  
+        }  
+    
+        function clearLastCharacter() {  
+            let display = document.getElementById('display');  
+            display.value = display.value.slice(0, -1);  
+        }  
+    </script>  
+</body>
+</html>

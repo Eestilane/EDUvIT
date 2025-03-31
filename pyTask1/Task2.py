@@ -11,7 +11,7 @@ def task():
         elif number % 2 != 0:
             print(f"Число {number} не является чётным")
 
-    except ValueError:
+    except:
         print("Ошибка: введено не число")
         
 task()
